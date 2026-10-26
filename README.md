@@ -1,6 +1,4 @@
-# UGER: Update-Guided Experience Replay for Continual Graph-Based Recommendation
-
-This repository provides the implementation of UGER, a continual recommendation framework integrating model-structure fusion sampling with update-guided replay stability.
+# UGER: Update-Guided Experience Replay for Continual Graph-Based Recommendation (WWW27')
 
 ## Requirements
 
@@ -13,15 +11,7 @@ This repository provides the implementation of UGER, a continual recommendation 
 pip install -r requirements.txt
 ```
 
-## Datasets
-
-Processed interactions are stored in `data/<dataset>/interactions/freq.csv`, with tab-separated `user_id`, `item_id`, and `timestamp` columns. Amazon data is included; Yelp and Taobao follow the same format.
-
-Interactions are partitioned chronologically into an initial 60% block and five incremental windows. Each subsequent evaluation window is divided into validation and test halves, using the same pre-window history mask and full-catalogue ranking.
-
 ## Quickstart: Two-Stage Training
-
-Run the following commands from the project root.
 
 ### 1. Pretrain the Recommendation Backbone
 
@@ -68,8 +58,6 @@ python -u src/main.py \
   --gpu 0
 ```
 
-Replay capacity defaults to the first incremental-window size and remains fixed across stages. The two stages must use matching backbone, architecture, data split, and seed settings. NGCF and MGCCF are also supported through `--backbone`; hyperparameters are selected using validation data.
-
 ### 3. Run Experience Replay Baselines
 
 ```bash
@@ -82,11 +70,8 @@ python -u src/main.py \
   --gpu 0
 ```
 
-Replace `Uniform` with `Invdeg` or `INFER` for the corresponding replay baseline. `Fine-tuning` and `Retraining` are available through the same entry point.
-
 ### 4. Run Distillation Baselines
 
-The inherited distillation implementations use LightGCN. Run from `baselines/`:
 
 ```bash
 python -u main.py \
@@ -105,12 +90,6 @@ python -u main.py \
   --gpu 0
 ```
 
-| Method | Model | Strategy |
-| --- | --- | --- |
-| LWC-KD | `Contrastive_LGN` | `finetune-contra-layerwise` |
-| LWC-KD-PIW | `Contrastive_LGN` | `finetune-contra-piw` |
-| PISA | `PISA_LGN` | `finetune-stability-plasticity-userneigh` |
-
 ## Main Command-Line Options
 
 | Option | Description |
@@ -126,7 +105,6 @@ python -u main.py \
 | `--replay-schedule` | Shared `buffers.npz` for matched replay interactions in candidate controls. |
 | `--resume` | Completed-stage checkpoint for resuming training. |
 
-For the main entry point, checkpoints and metrics are stored under `runs/<run-name>/`. Distillation outputs are stored under `baselines/artifacts/`. Use `--gpu -1` for CPU execution. Full option lists are available through each entry point's `--help`.
 
 ## Analysis and Verification
 
