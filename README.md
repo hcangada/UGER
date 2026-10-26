@@ -104,13 +104,3 @@ python -u main.py \
 | `--variant` | Framework ablations and candidate/perturbation controls. |
 | `--replay-schedule` | Shared `buffers.npz` for matched replay interactions in candidate controls. |
 | `--resume` | Completed-stage checkpoint for resuming training. |
-
-
-## Analysis and Verification
-
-```bash
-PYTHONPATH=src python -m uger.audit --help
-PYTHONPATH=src python -m uger.user_groups --help
-PYTHONPATH=src python -m uger.reporting --help
-PYTHONPATH=src python -m unittest discover -s tests -v
-```
