@@ -1,4 +1,4 @@
-# UGER: Update-Guided Experience Replay for Continual Graph-Based Recommendation (WWW27')
+# From Selection to Stability: Update-Guided Experience Replay for Continual Graph-Based Recommendation (WWW27')
 
 ## Requirements
 
